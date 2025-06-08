@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/159573f3-0089-4158-9c3a-e508208d0ffd)composer create-project laravel/laravel название-проекта создать проект
+composer create-project laravel/laravel название-проекта создать проект
 
 php artisan make:model Employee -m 
 
