@@ -28,3 +28,9 @@ php artisan make:controller ProductController
 
 php artisan migrate:fresh перезаписать таблицы в бд
 
+DB_CONNECTION=mysql
+# DB_HOST=127.0.0.1
+# DB_PORT=3306
+# DB_DATABASE=название
+# DB_USERNAME=root
+# DB_PASSWORD=Study-2@22
