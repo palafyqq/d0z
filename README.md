@@ -28,9 +28,46 @@ php artisan make:controller ProductController
 
 php artisan migrate:fresh перезаписать таблицы в бд
 
+связи
+Один-к-одному
+Используй hasOne() на стороне владельца.
+Используй belongsTo() на стороне того, кто содержит внешний ключ.
+(в скобочках __::class, Fk, PK)
+
+Один-ко-многим
+hasMany() — тот, у кого много.
+belongsTo() — тот, кто принадлежит.
+(в скобочках __::class, Fk, PK)
+
+Многие-ко-многим
+belongsToMany().
+belongsToMany().
+
+return $this->belongsToMany(Role::class, '11', '22', '33');
+
+'11'
+Это название промежуточной таблицы, которая соединяет пользователей и роли.
+'22'
+Это внешний ключ, ссылающийся на текущую модель (в которой ты пишешь этот метод).
+'33'
+Это внешний ключ, ссылающийся на связанную модель.
+
+22 и 33 меняется в зависимости от таблицы
+
+
+
+
+
 DB_CONNECTION=mysql
-# DB_HOST=127.0.0.1
-# DB_PORT=3306
-# DB_DATABASE=название
-# DB_USERNAME=root
-# DB_PASSWORD=Study-2@22
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=название
+DB_USERNAME=root
+DB_PASSWORD=Study-2@22
+
+
+
+
+
+
+
