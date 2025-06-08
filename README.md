@@ -1,4 +1,4 @@
-composer create-project laravel/laravel название-проекта создать проект
+![image](https://github.com/user-attachments/assets/159573f3-0089-4158-9c3a-e508208d0ffd)composer create-project laravel/laravel название-проекта создать проект
 
 php artisan make:model Employee -m 
 
@@ -24,3 +24,7 @@ php artisan make:model Product
 Контроллеры в Laravel - это классы, которые обрабатывают входящие HTTP-запросы и возвращают HTTP-ответы. Они являются промежуточным звеном между маршрутами (routes) и логикой приложения.
 
 php artisan make:controller ProductController
+
+
+php artisan migrate:fresh перезаписать таблицы в бд
+
