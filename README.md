@@ -55,9 +55,6 @@ return $this->belongsToMany(Role::class, '11', '22', '33');
 22 и 33 меняется в зависимости от таблицы
 
 
-
-
-
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
@@ -68,9 +65,8 @@ DB_PASSWORD=Study-2@22
 
 composer require laravel/ui
 php artisan ui:auth
+php artisan make:middleware CheckAge
 
 в web.php создаем маршруты для авторизации
 
-php artisan make:middleware CheckAge
-
-
+php artisan make:policy EmployeePolicy --model=Employee
