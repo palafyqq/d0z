@@ -65,10 +65,6 @@ DB_DATABASE=название
 DB_USERNAME=root
 DB_PASSWORD=Study-2@22
 
-авторизация
-composer require laravel/breeze --dev
-php artisan breeze:install
-npm install && npm run dev
 
 
 
