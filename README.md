@@ -66,7 +66,11 @@ DB_USERNAME=root
 DB_PASSWORD=Study-2@22
 
 
+composer require laravel/ui
+php artisan ui:auth
 
+в web.php создаем маршруты для авторизации
 
+php artisan make:middleware CheckAge
 
 
