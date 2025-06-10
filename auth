@@ -1,0 +1,123 @@
+В файле `routes/web.php` добавь:
+
+use App\Http\Controllers\Auth\LoginController;
+
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [LoginController::class, 'login']);
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+```
+
+---
+
+Создаем контроллер LoginController
+
+
+
+php artisan make:controller Auth/LoginController
+
+
+В файле `app/Http/Controllers/Auth/LoginController.php` напиши примерно так:
+
+<?php
+
+namespace App\Http\Controllers\Auth;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+class LoginController extends Controller
+{
+    public function showLoginForm()
+    {
+        return view('auth.login');
+    }
+
+    public function login(Request $request)
+    {
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+
+        if (Auth::attempt($credentials, $request->filled('remember'))) {
+            // Аутентификация успешна
+            $request->session()->regenerate();
+
+            return redirect()->intended('/dashboard'); // или куда хочешь
+        }
+
+        return back()->withErrors([
+            'email' => 'Неверные данные для входа.',
+        ])->onlyInput('email');
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/login');
+    }
+}
+```
+
+---
+
+Создай файл `resources/views/auth/login.blade.php`:
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Вход</title>
+</head>
+<body>
+    <h1>Вход в систему</h1>
+
+    @if ($errors->any())
+        <div style="color: red;">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    <form method="POST" action="{{ route('login') }}">
+        @csrf
+
+        <div>
+            <label>Email:</label>
+            <input type="email" name="email" value="{{ old('email') }}" required autofocus>
+        </div>
+
+        <div>
+            <label>Пароль:</label>
+            <input type="password" name="password" required>
+        </div>
+
+        <div>
+            <label>
+                <input type="checkbox" name="remember"> Запомнить меня
+            </label>
+        </div>
+
+        <button type="submit">Войти</button>
+    </form>
+</body>
+</html>
+```
+
+---
+
+
+Чтобы проверить, что авторизация работает, добавь в `routes/web.php`:
+
+```php
+Route::get('/dashboard', function () {
+    return "Добро пожаловать в личный кабинет, " . auth()->user()->name;
+})->middleware('auth');
+
