@@ -31,6 +31,15 @@ Route::group(['namespace' => 'App\Http\Controllers\Auth'], function() {
 });
 
 
+use App\Http\Controllers\Auth\LoginController;
+
+Route::prefix('auth')->group(function () {
+    Route::get('/login', [LoginController::class, 'showLoginForm'])->name('auth.loginForm');
+    Route::post('/login', [LoginController::class, 'login'])->name('auth.login');
+    Route::post('/logout', [LoginController::class, 'logout'])->name('auth.logout');
+});
+
+
 Route::group(['namespace' => 'App\Http\Controllers', 'middleware' => 'auth'], function() {
     // Main Route
     Route::get('/', 'MainController')->name('main.index');
